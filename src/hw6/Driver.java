@@ -29,7 +29,18 @@ public class Driver {
         System.out.println(n);
         graph = new Graph(n);
         numbify();
+        initGraph();
+    }
 
+    public void numbify(){ //converts actors' names into unique integer ids
+        idMap = new LinkedHashMap<>();
+        int i = 0;
+        for (Map.Entry<String,HashSet<String>> map : actorMap.entrySet())
+            idMap.put(i++,map.getValue());
+        
+    }
+
+    public void initGraph() {
         for (Map.Entry<Integer,HashSet<String>> actor1 : idMap.entrySet()) {
             for (Map.Entry<Integer,HashSet<String>> actor2 : idMap.entrySet()) {
                 for(String movie1 : actor1.getValue()){
@@ -43,14 +54,7 @@ public class Driver {
             }
         }
         System.out.println(graph.edgeCounter());
-    }
-
-    public void numbify(){ //converts actors' names into unique integer ids
-        idMap = new LinkedHashMap<>();
-        int i = 0;
-        for (Map.Entry<String,HashSet<String>> map : actorMap.entrySet())
-            idMap.put(i++,map.getValue());
-        
+        graph.printVertices();
     }
     public LinkedHashMap<String,HashSet<String>> getActorMap() {return actorMap;}
 
